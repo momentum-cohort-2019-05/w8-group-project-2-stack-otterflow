@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.conf import settings
 
 class Question(models.Model):
     title = models.CharField(max_length=200, help_text='Enter a question here')
@@ -51,7 +52,7 @@ class Answer(models.Model):
     """Model representing an answer."""
     answer = models.TextField(max_length=200, help_text='Enter a comment here')
     date_posted = models.DateTimeField(auto_now_add=True)
-    target_question = models.ForeignKey('', on_delete=models.CASCADE, null=True)
+    target_question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
     approved_answer = models.BooleanField(default=False)
 
