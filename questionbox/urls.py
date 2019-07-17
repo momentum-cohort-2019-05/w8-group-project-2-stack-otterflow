@@ -21,3 +21,15 @@ urlpatterns = [
     path('accounts/', include('registration.backends.simple.urls')),
 
 ]
+
+from django.urls import include
+from django.urls import path
+
+urlpatterns += [
+    path('core/', include('core.urls')),
+]
+
+from django.views.generic import RedirectView
+urlpatterns += [
+    path('', RedirectView.as_view(url='/core/', permanent=True)),
+]
