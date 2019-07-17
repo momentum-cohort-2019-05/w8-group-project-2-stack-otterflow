@@ -1,7 +1,7 @@
 from django.shortcuts import render
-
+from django.views import generic
 # Create your views here.
-from core.models import Question, Category, Favorite, Answer
+from core.models import Question, Category, Favorite, Answer, OtterProfile
 
 def index(request):
     """View function for home page of site."""
@@ -16,3 +16,6 @@ def index(request):
 
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
+
+class OtterProfileDetailView(generic.DetailView):
+    model = OtterProfile
