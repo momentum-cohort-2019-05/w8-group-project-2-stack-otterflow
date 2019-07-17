@@ -3,6 +3,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
 
 
 class Question(models.Model):
@@ -10,7 +14,7 @@ class Question(models.Model):
     description = models.TextField(
         max_length=5000, help_text='Type your question description here')
     date_posted = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey('OtterProfile', on_delete=models.CASCADE)
     times_favorited = models.PositiveIntegerField(
         default=0, help_text='Enter the number of times this question has been favorited')
     category = models.ManyToManyField(
@@ -47,7 +51,8 @@ class Category(models.Model):
 
 
 class Favorite(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    favorited_by = models.ForeignKey(
+        'OtterProfile', on_delete=models.SET_NULL, null=True)
     question = models.ForeignKey(
         Question, on_delete=models.SET_NULL, null=True)
     date_favorited = models.DateField(
@@ -80,3 +85,33 @@ class Answer(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.answer
+
+
+class OtterProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500,
+                           help_text='A brief biography of the user')
+
+    def __str__(self):
+        """
+        String for representing the user.
+        """
+        return self.user.username
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular user's profile.
+        """
+        return reverse('otter-profile', args=[str(self.id)])
+
+    class Meta:
+        ordering = ['user', 'bio']
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        OtterProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.otterprofile.save()

@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from core.models import Question, Category, Favorite, Answer
-
+from core.models import Question, Category, Favorite, Answer, OtterProfile
 
 def index(request):
     """View function for home page of site."""
@@ -18,10 +17,11 @@ def index(request):
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
 
-
 class CategoryListView(generic.ListView):
     model = Category
 
-
 class CategoryDetailView(generic.DetailView):
     model = Category
+    
+class OtterProfileDetailView(generic.DetailView):
+    model = OtterProfile
