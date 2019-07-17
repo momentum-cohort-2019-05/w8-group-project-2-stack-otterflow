@@ -8,6 +8,7 @@ from django.dispatch import receiver
 
 
 
+
 class Question(models.Model):
     title = models.CharField(max_length=200, help_text='Enter a question here')
     description = models.TextField(
@@ -35,7 +36,10 @@ class Category(models.Model):
         max_length=100, help_text="Chose a category for your question.")
 
     def get_absolute_url(self):
-        pass
+        """
+        A function to return a link to category's unique page.
+        """
+        return reverse('category-detail', args=[str(self.id)])
 
     class Meta:
         verbose_name_plural = "categories"
