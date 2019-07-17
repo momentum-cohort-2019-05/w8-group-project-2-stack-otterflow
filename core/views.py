@@ -8,10 +8,12 @@ def index(request):
 
     # Generate counts of some of the main objects
     num_questions = Question.objects.all().count()
+    recent_questions_list = Question.objects.all()[0:5]
 
     
     context = {
         'num_questions': num_questions,
+        'recent_questions_list': recent_questions_list,
     }
 
     # Render the HTML template index.html with the data in the context variable
