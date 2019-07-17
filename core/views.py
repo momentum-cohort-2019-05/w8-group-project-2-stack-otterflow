@@ -1,7 +1,7 @@
 from django.shortcuts import render
-
-# Create your views here.
+from django.views import generic
 from core.models import Question, Category, Favorite, Answer
+
 
 def index(request):
     """View function for home page of site."""
@@ -10,7 +10,6 @@ def index(request):
     num_questions = Question.objects.all().count()
     recent_questions_list = Question.objects.all()[0:5]
 
-    
     context = {
         'num_questions': num_questions,
         'recent_questions_list': recent_questions_list,
@@ -18,3 +17,11 @@ def index(request):
 
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
+
+
+class CategoryListView(generic.ListView):
+    model = Category
+
+
+class CategoryDetailView(generic.DetailView):
+    model = Category
