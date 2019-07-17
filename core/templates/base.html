@@ -28,6 +28,16 @@
         </ul>
      {% endblock %}
       </div>
+      <div class='sortbar'>
+            {% block sortbar %}
+              <ul class='flexbar'>
+                  <div class='leftnav'>
+                      <li><a href="">All Questions</a></li>
+                      <li><a href="{% url 'categories' %}">All Categories</a></li>
+                  </div> 
+              </ul>
+           {% endblock %}
+            </div>
       <div>{% block content %}{% endblock %}</div>
 </body>
 </html>

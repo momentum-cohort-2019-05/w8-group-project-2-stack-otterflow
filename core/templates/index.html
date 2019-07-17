@@ -9,8 +9,8 @@
         {% for question in recent_questions_list %}
         <div class="shortlist">
                 <div class="question"><a href="{{ question.url_address }}">{{ question.title }}</a> by {{question.owner}} </div>
-                <p class="added">Added: {{question.date_posted}} Category: <a href='{{ question.category.all|join:", "}}'>{{ question.category.all|join:", "}}</a></p>
-                <p><a  href= "">Add to favorites</a></p>
+                <p class="added">Added: {{question.date_posted}} Category: {% for category in all_cats %}<a href="{{ category.get_absolute_url }}">{% endfor %}{{ question.category.all|join:", "}}</a></p>
+                <p><a href="">Add to favorites</a></p>
             </div>
             {% endfor %}
         {% else %}
