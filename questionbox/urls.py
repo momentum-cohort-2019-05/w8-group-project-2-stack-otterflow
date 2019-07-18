@@ -33,3 +33,8 @@ from django.views.generic import RedirectView
 urlpatterns += [
     path('', RedirectView.as_view(url='/core/', permanent=True)),
 ]
+
+from django.conf import settings # new
+from django.conf.urls.static import static # new
+if settings.DEBUG: # new
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
