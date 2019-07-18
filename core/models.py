@@ -24,7 +24,7 @@ class Question(models.Model):
         ordering = ['-date_posted']
 
     def get_absolute_url(self):
-        pass
+        return reverse('question-detail', args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object."""
@@ -51,18 +51,15 @@ class Category(models.Model):
 
 
 class Favorite(models.Model):
-    favorited_by = models.ForeignKey(
-        'OtterProfile', on_delete=models.SET_NULL, null=True)
-    question = models.ForeignKey(
-        Question, on_delete=models.SET_NULL, null=True)
-    date_favorited = models.DateField(
-        auto_now_add=True, verbose_name="Date Favorited")
+    favorited_by = models.ForeignKey(User, default=1, unique=False, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
+    date_favorited = models.DateField(auto_now_add=True, verbose_name="Date Favorited")
 
     class Meta:
         ordering = ['-date_favorited']
 
     def __str__(self):
-        return f"{self.user} | {self.question}"
+        return f"{self.favorited_by} | {self.question}"
 
 
 class Answer(models.Model):

@@ -3,21 +3,21 @@
 
 {% block content %}
 
-
+    <div class="question_list">
     <h1>Questions</h1>
-    <!-- {% if questions_list %}
+    {% if question_list %}
         <ul>
-        {% for question in questions_list %}
+        {% for question in question_list %}
             <li>
-             <a href="{{ question.get_absolute_url }}">{{ question.title }}</a> ({{question.category}})
+             <a href="{{ question.get_absolute_url }}">{{ question.title }}</a> ({{ question.category.all|join:", "}})
             </li>
         {% endfor %}
         </ul>
     {% else %}
         <p>There are no Questions asked.</p>
     {% endif %}
-        </p> -->
-
+        </p>
+    </div>
 
 
 {% endblock %}
