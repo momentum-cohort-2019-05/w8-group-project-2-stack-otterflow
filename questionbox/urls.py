@@ -38,3 +38,7 @@ from django.conf import settings # new
 from django.conf.urls.static import static # new
 if settings.DEBUG: # new
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    path('avatar/', include('avatar.urls')),
+]
