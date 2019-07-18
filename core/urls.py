@@ -23,5 +23,5 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('profile/', login_required(views.CreateProfileView.as_view()), name='create-profile'),
+    path('otter/<int:pk>/profile/', views.create_profile, name='create-profile'),
 ]
