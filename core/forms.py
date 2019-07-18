@@ -1,5 +1,5 @@
 from django import forms
-from .models import OtterProfile
+from .models import OtterProfile, Answer
 
 # class ProfileForm(forms.ModelForm):
 
@@ -47,3 +47,9 @@ class OtterProfileForm(forms.ModelForm):
             pass
 
         return avatar
+
+class AnswerForm(forms.ModelForm):
+
+    class Meta:
+        model = Answer
+        fields = ('answer',)

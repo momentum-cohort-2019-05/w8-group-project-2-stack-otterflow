@@ -1,6 +1,5 @@
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
-from django.shortcuts import render, get_list_or_404, get_object_or_404
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.views import generic
 from core.models import Question, Category, Favorite, Answer, OtterProfile
 from django.contrib.auth.decorators import login_required
@@ -80,12 +79,29 @@ def add_to_favorites(request, pk):
     }
 
     return render(request, 'core/favorite_added.html', context)
-
+    
 # class CreateProfileView(CreateView):
 #     model = OtterProfile
 #     form_class = OtterProfileForm
 #     template_name = 'core/profile.html'
 #     success_url = reverse_lazy('otter-profile')
+
+@login_required 
+def add_answer_to_question(request, pk):
+    from core.forms import AnswerForm
+    from django.views.generic.edit import CreateView
+    answer = get_object_or_404(Question, pk=pk)
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.user = request.user
+            answer.target_question = get_object_or_404(Question, pk=pk)
+            form.save()
+            return redirect('question-detail', pk=pk)
+    else:
+        form = AnswerForm()
+    return render(request, 'core/answer_form.html', {'form': form})
 
 from django.contrib import messages
 
