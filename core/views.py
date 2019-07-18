@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from core.models import Question, Category, Favorite, Answer, OtterProfile
 from django.contrib.auth.decorators import login_required
@@ -88,3 +88,20 @@ class CreateProfileView(CreateView):
     #     profile = form.save(commit=False)
     #     profile.user = request.user
     #     profile.save()
+
+@login_required 
+def add_answer_to_question(request, pk):
+    from core.forms import AnswerForm
+    from django.views.generic.edit import CreateView
+    answer = get_object_or_404(Question, pk=pk)
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.user = request.user
+            answer.target_question = get_object_or_404(Question, pk=pk)
+            form.save()
+            return redirect('question-detail', pk=pk)
+    else:
+        form = AnswerForm()
+    return render(request, 'core/answer_form.html', {'form': form})
