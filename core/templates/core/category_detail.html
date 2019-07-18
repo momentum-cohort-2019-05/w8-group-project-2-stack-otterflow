@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="category-detail">
 <h1>{{ category.name }}</h1>
 <div>
     {% if category.question_set.all %}
@@ -15,5 +16,6 @@
     {% else %}
     <p>There are no questions in this category.</p>
     {% endif %}
+</div>
 </div>
 {% endblock %}
