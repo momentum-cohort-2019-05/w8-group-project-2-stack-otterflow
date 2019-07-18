@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h1>Otter: {{ otterprofile.user }}</h1>
 
-<h1>{{ otterprofile.user }}</h1>
+<p><strong>A Bit about this Otter: </strong>{{ otterprofile.bio }}</p>
 
-</div>
+<h1>Avatar Image</h1>
+<ul>
+      <img src="{{ otterprofile.avatar.url }}" alt="{{ otter.user }}">
+</ul>
 {% endblock %}

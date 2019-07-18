@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.views import generic
 from core.models import Question, Category, Favorite, Answer, OtterProfile
+from django.urls import reverse_lazy
+from .forms import OtterProfileForm
+from django.views.generic import CreateView 
 
 def index(request):
     """View function for home page of site."""
@@ -25,3 +28,14 @@ class CategoryDetailView(generic.DetailView):
     
 class OtterProfileDetailView(generic.DetailView):
     model = OtterProfile
+
+class CreateProfileView(CreateView):
+    model = OtterProfile
+    form_class = OtterProfileForm
+    template_name = 'core/profile.html'
+    success_url = reverse_lazy('otter-profile')
+
+    # if form.is_valid():
+    #     profile = form.save(commit=False)
+    #     profile.user = request.user
+    #     profile.save()

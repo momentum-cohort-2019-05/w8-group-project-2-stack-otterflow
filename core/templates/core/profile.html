@@ -1,0 +1,6 @@
+<h1>Create Profile Page</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Create Otter Profile</button>
+</form>
