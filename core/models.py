@@ -89,8 +89,9 @@ class Answer(models.Model):
 
 class OtterProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500,
-                           help_text='A brief biography of the user')
+    bio = models.TextField(max_length=500, blank=True,
+                           help_text='Tell us a bit about yourself!')
+    avatar = models.ImageField(upload_to='images/')
 
     def __str__(self):
         """
