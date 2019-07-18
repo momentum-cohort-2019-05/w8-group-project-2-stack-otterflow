@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Question: {{ question.title }}</h1>
+<p><strong>Author:</strong> <a href="">{{ question.author }}</a></p>
+<p><strong>Description:</strong> {{ question.description }}</p>
+<p><strong>Categories:</strong> {% for type in question.category.all %}
+    <ul>
+        <li>
+            <a href="{{ type.get_absolute_url }}">{{ type }}</a>
+        </li>
+    </ul>{% endfor %}</p>
+<p><strong>Date Added:</strong> {{ question.date_added }}</p>
+<p><strong>Favorited:</strong> {{ question.num_favorited }} time{{question.num_favorited|pluralize}}</p>
+
+{% if user.is_authenticated %}
+{% if user in favorite_users %}
+<section id="remove favorite">
+    <form action="{% url 'question_detail' pk=question.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="{{ form.favorite.html_name }}" value="False">
+        <button type="submit">Remove from Favorites</button>
+    </form>
+</section>
+{% else %}
+<section id="add-favorite">
+    <form action="{% url 'question_detail' pk=book.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="{{ form.favorited.html_name }}" value="True">
+        <button type="submit">Add to Favorites</button>
+    </form>
+</section>
+{% endif %}
+{% endif %}
+
+<div style="margin-left:20px;margin-top:20px">
+
+    <h4>Answers</h4>
+
+    {% for answer in question.questionanswer_set.all %}
+    <hr>
+    <p>{{answer.author}} ({{answer.post_date}}) - {{answer.text}}</p>
+    {% endfor %}
+    <hr>
+    {% if user.is_authenticated %}
+    <a href="{% url 'question_detail' question.id %}">Add a new comment</a></p>
+    {% else %}
+    <p><a href="{% url 'login'%}?next={{request.path}}">Login</a> to add a new comment</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}
