@@ -11,6 +11,7 @@ urlpatterns = [
 urlpatterns += [
     path('questions/', views.QuestionListView.as_view(), name='question-list'),
     path('questions/<int:pk>', views.QuestionDetailListView.as_view(), name='question-detail'),
+]
 
 urlpatterns += [
     path('otter/<int:pk>', views.OtterProfileDetailView.as_view(), name='otter-profile'),

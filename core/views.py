@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import OtterProfileForm
 from django.views.generic import CreateView 
+from django.shortcuts import get_object_or_404
+
 
 def index(request):
     """View function for home page of site."""
@@ -75,6 +77,7 @@ def add_to_favorites(request, pk):
     }
 
     return render(request, 'core/favorite_added.html', context)
+    
 class CreateProfileView(CreateView):
     model = OtterProfile
     form_class = OtterProfileForm
