@@ -41,6 +41,9 @@ INSTALLED_APPS = [
 
     # Our Apps
     'core',
+
+    # Third-Party Apps
+    'avatar',
 ]
 
 MIDDLEWARE = [

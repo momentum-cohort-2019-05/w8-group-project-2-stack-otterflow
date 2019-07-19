@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.views import generic
 from core.models import Question, Category, Favorite, Answer, OtterProfile
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import OtterProfileForm
-from django.views.generic import CreateView 
-from django.shortcuts import get_object_or_404
+from django.views.generic import CreateView
 
 
 def index(request):
@@ -26,24 +26,26 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 
-
-
-from django.views import generic
-
 class QuestionListView(generic.ListView):
     model = Question
+
 
 class QuestionDetailListView(generic.DetailView):
     model = Question
 
+
 class CategoryListView(generic.ListView):
     model = Category
 
+
 class CategoryDetailView(generic.DetailView):
     model = Category
-    
+
+
 class OtterProfileDetailView(generic.DetailView):
     model = OtterProfile
+    
+
 
 @login_required
 def user_favorites(request):
@@ -65,26 +67,80 @@ def user_favorites(request):
 @login_required
 def add_to_favorites(request, pk):
     question = get_object_or_404(Question, pk=pk)
-    
-    new_favorite, created = Favorite.objects.get_or_create(question=question, favorited_by=request.user)
+
+    new_favorite, created = Favorite.objects.get_or_create(
+        question=question, favorited_by=request.user)
     if not created:
         new_favorite.delete()
 
     context = {
-    'question': question,
-    'new_favorite': new_favorite,
-    'created': created,
+        'question': question,
+        'new_favorite': new_favorite,
+        'created': created,
     }
 
     return render(request, 'core/favorite_added.html', context)
     
-class CreateProfileView(CreateView):
-    model = OtterProfile
-    form_class = OtterProfileForm
-    template_name = 'core/profile.html'
-    success_url = reverse_lazy('otter-profile')
+# class CreateProfileView(CreateView):
+#     model = OtterProfile
+#     form_class = OtterProfileForm
+#     template_name = 'core/profile.html'
+#     success_url = reverse_lazy('otter-profile')
 
-    # if form.is_valid():
-    #     profile = form.save(commit=False)
-    #     profile.user = request.user
-    #     profile.save()
+@login_required 
+def add_answer_to_question(request, pk):
+    from core.forms import AnswerForm
+    from django.views.generic.edit import CreateView
+    answer = get_object_or_404(Question, pk=pk)
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.user = request.user
+            answer.target_question = get_object_or_404(Question, pk=pk)
+            form.save()
+            return redirect('question-detail', pk=pk)
+    else:
+        form = AnswerForm()
+    return render(request, 'core/answer_form.html', {'form': form})
+
+
+@login_required 
+def add_new_question(request):
+    from core.forms import QuestionForm
+    from django.views.generic.edit import CreateView
+    # question = get_object_or_404(Question)
+    if request.method == "POST":
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.owner = request.user.otterprofile
+            question.post = Question
+            form.save()
+            return redirect('question-list')
+    else:
+        form = QuestionForm()
+    return render(request, 'core/question_form.html', {'form': form})
+
+from django.contrib import messages
+
+@login_required
+def create_profile(request, pk):
+    otterprofile = get_object_or_404(OtterProfile, id=pk)
+
+    if otterprofile.user != request.user:
+        messages.warning(
+            request, "You cannot edit this profile! This is not your profile!")
+        return redirect('/')
+
+    if request.method == 'POST':
+        form = OtterProfileForm(request.POST)
+        if form.is_valid():
+            otterprofile.user = request.user
+            otterprofile.bio = form.cleaned_data['bio']
+            # otterprofile.avatar = form.cleaned_data['avatar']
+            otterprofile.save()
+            return redirect('index')
+    else:
+        form = OtterProfileForm()
+    return render(request, 'core/profile.html', {'form': form})
