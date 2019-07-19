@@ -14,7 +14,7 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    # path('otter/<int:pk>', views.OtterProfileDetailView.as_view(), name='otter-profile'),
+    path('user/<int:pk>', views.UserProfileView.as_view(), name='user-profile'),
     path('categories/', views.CategoryListView.as_view(), name='categories'),
     path('category/<int:pk>', views.CategoryDetailView.as_view(),name='category-detail'),
     path('favorites/', views.user_favorites, name='user-favorites'),
