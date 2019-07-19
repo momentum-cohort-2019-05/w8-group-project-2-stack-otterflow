@@ -1,10 +1,9 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.views import generic
-from core.models import Question, Category, Favorite, Answer, OtterProfile
+from core.models import Question, Category, Favorite, Answer
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from .forms import OtterProfileForm
 from django.views.generic import CreateView
 
 
@@ -42,8 +41,6 @@ class CategoryDetailView(generic.DetailView):
     model = Category
 
 
-class OtterProfileDetailView(generic.DetailView):
-    model = OtterProfile
     
 
 
@@ -81,11 +78,7 @@ def add_to_favorites(request, pk):
 
     return render(request, 'core/favorite_added.html', context)
     
-# class CreateProfileView(CreateView):
-#     model = OtterProfile
-#     form_class = OtterProfileForm
-#     template_name = 'core/profile.html'
-#     success_url = reverse_lazy('otter-profile')
+
 
 @login_required 
 def add_answer_to_question(request, pk):
@@ -124,23 +117,4 @@ def add_new_question(request):
 
 from django.contrib import messages
 
-@login_required
-def create_profile(request, pk):
-    otterprofile = get_object_or_404(OtterProfile, id=pk)
 
-    if otterprofile.user != request.user:
-        messages.warning(
-            request, "You cannot edit this profile! This is not your profile!")
-        return redirect('/')
-
-    if request.method == 'POST':
-        form = OtterProfileForm(request.POST)
-        if form.is_valid():
-            otterprofile.user = request.user
-            otterprofile.bio = form.cleaned_data['bio']
-            # otterprofile.avatar = form.cleaned_data['avatar']
-            otterprofile.save()
-            return redirect('index')
-    else:
-        form = OtterProfileForm()
-    return render(request, 'core/profile.html', {'form': form})
