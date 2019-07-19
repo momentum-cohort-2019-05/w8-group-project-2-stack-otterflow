@@ -1,3 +1,4 @@
+{% load avatar_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
             </div> 
             <div class='rightnav'>
             {% if request.user.is_authenticated %}
-                <li>{{ request.user }}</li>
+                <li><a href="{% url 'otter-profile' pk=user.id %}">{% avatar user 30 %} {{ request.user }}</a></li>
                 <li><a href="{% url 'user-favorites' %}">Favorites</a></li> 
                 <li><a href="{% url 'auth_logout' %}">Logout</a></li>
             {% else %}

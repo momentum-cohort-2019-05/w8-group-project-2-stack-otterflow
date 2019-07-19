@@ -44,6 +44,7 @@ class CategoryDetailView(generic.DetailView):
 
 class OtterProfileDetailView(generic.DetailView):
     model = OtterProfile
+    
 
 
 @login_required
@@ -119,9 +120,9 @@ def create_profile(request, pk):
         if form.is_valid():
             otterprofile.user = request.user
             otterprofile.bio = form.cleaned_data['bio']
-            otterprofile.avatar = form.cleaned_data['avatar']
+            # otterprofile.avatar = form.cleaned_data['avatar']
             otterprofile.save()
-            return redirect('otter-profile')
+            return redirect('index')
     else:
         form = OtterProfileForm()
     return render(request, 'core/profile.html', {'form': form})
