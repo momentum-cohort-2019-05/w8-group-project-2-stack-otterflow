@@ -19,7 +19,7 @@
             </div> 
             <div class='rightnav'>
             {% if request.user.is_authenticated %}
-                <li><a href="{% url 'index' %}">{% avatar user 30 %} {{ request.user }}</a></li>
+                <li><a href="{% url 'user-profile' pk=user.id %}">{% avatar user 30 %} {{ request.user }}</a></li>
                 <li><a href="{% url 'user-favorites' %}">Favorites</a></li> 
                 <li><a href="{% url 'auth_logout' %}">Logout</a></li>
             {% else %}

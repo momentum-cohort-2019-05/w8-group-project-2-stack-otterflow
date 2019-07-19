@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.views import generic
@@ -5,6 +6,7 @@ from core.models import Question, Category, Favorite, Answer
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.contrib.auth.models import User  # Blog author or commenter
 
 
 def index(request):
@@ -41,9 +43,6 @@ class CategoryDetailView(generic.DetailView):
     model = Category
 
 
-    
-
-
 @login_required
 def user_favorites(request):
     favorites = Favorite.objects.filter(favorited_by=request.user)
@@ -77,10 +76,9 @@ def add_to_favorites(request, pk):
     }
 
     return render(request, 'core/favorite_added.html', context)
-    
 
 
-@login_required 
+@login_required
 def add_answer_to_question(request, pk):
     from core.forms import AnswerForm
     from django.views.generic.edit import CreateView
@@ -98,7 +96,7 @@ def add_answer_to_question(request, pk):
     return render(request, 'core/answer_form.html', {'form': form})
 
 
-@login_required 
+@login_required
 def add_new_question(request):
     from core.forms import QuestionForm
     from django.views.generic.edit import CreateView
@@ -115,6 +113,25 @@ def add_new_question(request):
         form = QuestionForm()
     return render(request, 'core/question_form.html', {'form': form})
 
-from django.contrib import messages
 
+class UserProfileView(generic.ListView):
+    model = Question
+    template_name = 'core/profile.html'
 
+    def get_queryset(self):
+        """
+        Return list of Question objects created by User (owner id specified in URL)
+        """
+        id = self.kwargs['pk']
+        target_owner = get_object_or_404(User, pk=id)
+        return Question.objects.filter(owner=target_owner)
+
+    def get_context_data(self, **kwargs):
+        """
+        Add question owner to context so they can be displayed in the template
+        """
+        # Call the base implementation first to get a context
+        context = super(UserProfileView, self).get_context_data(**kwargs)
+        # Get the owner object from the "pk" URL parameter and add it to the context
+        context['user'] = get_object_or_404(User, pk=self.kwargs['pk'])
+        return context
