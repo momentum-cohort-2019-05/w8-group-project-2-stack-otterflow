@@ -86,3 +86,12 @@ footer {
     }
   }
 
+.class1 {
+    background-color: #f00;
+    height: 500px;
+}
+
+.class2 {
+    background-color: #00f;
+    height: 10px;
+}
