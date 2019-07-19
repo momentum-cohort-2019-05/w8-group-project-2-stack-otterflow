@@ -1,5 +1,5 @@
 from django import forms
-from .models import OtterProfile, Answer
+from .models import OtterProfile, Answer, Question
 
 # class ProfileForm(forms.ModelForm):
 
@@ -53,3 +53,9 @@ class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = ('answer',)
+
+class QuestionForm(forms.ModelForm):
+
+    class Meta:
+        model = Question
+        fields = ('title', 'description', 'category',)
