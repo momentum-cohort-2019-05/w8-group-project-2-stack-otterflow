@@ -1,5 +1,5 @@
 from django import forms
-from .models import Answer, Question
+from .models import Answer, Question, Category
 from django.core.files.images import get_image_dimensions
 
 
@@ -15,3 +15,8 @@ class QuestionForm(forms.ModelForm):
         model = Question
         fields = ('title', 'description', 'category',)
 
+class CategoryForm(forms.ModelForm):
+
+    class Meta:
+        model = Category
+        fields = ('name',)
