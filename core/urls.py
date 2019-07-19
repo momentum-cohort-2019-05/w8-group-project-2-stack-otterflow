@@ -20,6 +20,7 @@ urlpatterns += [
     path('favorites/', views.user_favorites, name='user-favorites'),
     path('favorite_added/<int:pk>', views.add_to_favorites, name='favorites'),
     path('answer/<int:pk>/answer/', views.add_answer_to_question, name='add_answer_to_question'),
+    path('question/', views.add_new_question, name='add_new_question'),
 ]
 
 urlpatterns += [

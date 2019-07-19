@@ -104,6 +104,24 @@ def add_answer_to_question(request, pk):
         form = AnswerForm()
     return render(request, 'core/answer_form.html', {'form': form})
 
+
+@login_required 
+def add_new_question(request):
+    from core.forms import QuestionForm
+    from django.views.generic.edit import CreateView
+    # question = get_object_or_404(Question)
+    if request.method == "POST":
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.owner = request.user.otterprofile
+            question.post = Question
+            form.save()
+            return redirect('question-list')
+    else:
+        form = QuestionForm()
+    return render(request, 'core/question_form.html', {'form': form})
+
 from django.contrib import messages
 
 @login_required
