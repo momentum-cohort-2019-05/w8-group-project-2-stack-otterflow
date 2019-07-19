@@ -107,7 +107,7 @@ def add_new_question(request):
         form = QuestionForm(request.POST)
         if form.is_valid():
             question = form.save(commit=False)
-            question.owner = request.user.otterprofile
+            question.owner = request.user
             question.post = Question
             form.save()
             return redirect('question-list')
