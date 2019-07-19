@@ -115,6 +115,22 @@ def add_new_question(request):
         form = QuestionForm()
     return render(request, 'core/question_form.html', {'form': form})
 
+
+@login_required 
+def add_new_category(request):
+    from core.forms import CategoryForm
+    from django.views.generic.edit import CreateView
+    # question = get_object_or_404(Question)
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save(commit=False)
+            form.save()
+            return redirect('add_new_question')
+    else:
+        form = CategoryForm()
+    return render(request, 'core/category_form.html', {'form': form})
+
 from django.contrib import messages
 
 
