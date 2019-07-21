@@ -3,5 +3,9 @@
   "dependencies": {
     "browserify": "^16.3.0",
     "watchify": "^3.11.1"
+  },
+  "scripts": {
+    "start": "watchify core/static/main.js -v -o core/static/compiled.js",
+    "compile": "browserify core/static/main.js -o core/static/compiled.js"
   }
 }
