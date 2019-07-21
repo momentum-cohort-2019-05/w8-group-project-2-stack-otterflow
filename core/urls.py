@@ -23,3 +23,7 @@ urlpatterns += [
     path('question/', views.add_new_question, name='add_new_question'),
     path('category/', views.add_new_category, name='add_new_category'),
 ]
+
+urlpatterns += [
+        path('sendmail', views.sendmail, name='sendmail'),
+]
