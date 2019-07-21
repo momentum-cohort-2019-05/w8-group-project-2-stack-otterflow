@@ -29,7 +29,7 @@ urlpatterns = [
 
 
 urlpatterns += [
-    path('/', include('core.urls')),
+    path('', include('core.urls')),
 ]
 
 urlpatterns += [
