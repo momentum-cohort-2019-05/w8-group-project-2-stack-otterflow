@@ -139,6 +139,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
 
+
 # Configure email
 # One-week activation window; you may, of course, use a different value.
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -156,3 +157,4 @@ if SENDGRID_API_KEY:
     EMAIL_USE_TLS = True
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
