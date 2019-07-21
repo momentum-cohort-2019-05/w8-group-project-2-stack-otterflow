@@ -3,48 +3,53 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  {% block title %}<title>Stack Otterflow</title>{% endblock %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  <script src="{% static 'compiled.js' %}" defer></script>
+    {% block title %}<title>Stack Otterflow</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js.cookie.js' %}" defer></script>
+    <script src="{% static 'compiled.js' %}" defer></script>
 </head>
+
 <body>
-      <div class='navbar'>
-        
-      {% block topbar %}
+    <div class='navbar'>
+
+        {% block topbar %}
         <ul class='flexbar'>
             <div class='leftnav'>
                 <!-- <li><a class="icon" href="{% url 'index' %}"> <img src="https://cdn1.iconfinder.com/data/icons/animals-set-01/100/OTTER-512.png" height="50" width="50"></a></li> -->
                 <li><a href="{% url 'index' %}">Stack Otterflow</a></li>
-            </div> 
+            </div>
             <div class='rightnav'>
-            {% if request.user.is_authenticated %}
+                {% if request.user.is_authenticated %}
                 <li><a href="{% url 'user-profile' pk=user.id %}">{% avatar user 30 %} {{ request.user }}</a></li>
-                <li><a href="{% url 'user-favorites' %}">Favorites</a></li> 
+                <li><a href="{% url 'user-favorites' %}">Favorites</a></li>
                 <li><a href="{% url 'auth_logout' %}">Logout</a></li>
-            {% else %}
-                <li><a href="{% url 'auth_login' %}">Login</a></li> 
+                {% else %}
+                <li><a href="{% url 'auth_login' %}">Login</a></li>
                 <li><a href="{% url 'registration_register' %}">Register</a></li>
             </div>
-        {% endif %}
+            {% endif %}
         </ul>
-     {% endblock %}
-      </div>
-      <div class='sortbar'>
-            {% block sortbar %}
-              <ul class='flexsort'>
-                  <div class='leftnav'>
-                      <li><a href="{% url 'question-list' %}">All Questions</a></li>
-                      <li><a href="{% url 'categories' %}">All Categories</a></li>
-                  </div> 
-              </ul>
-           {% endblock %}
+        {% endblock %}
+    </div>
+    <div class='sortbar'>
+        {% block sortbar %}
+        <ul class='flexsort'>
+            <div class='leftnav'>
+                <li><a href="{% url 'question-list' %}">All Questions</a></li>
+                <li><a href="{% url 'categories' %}">All Categories</a></li>
             </div>
-      <div>{% block content %}{% endblock %}</div>
-      <footer>
-          <p>Copyright &copy; 2019 Stack Otterflow Inc. All rights reserved.</p>
-      </footer>
+        </ul>
+        {% endblock %}
+    </div>
+    <div>{% block content %}{% endblock %}</div>
+    <footer>
+        <p>Copyright &copy; 2019 Stack Otterflow Inc. All rights reserved.</p>
+    </footer>
 </body>
+
+
 </html>
