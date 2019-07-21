@@ -138,3 +138,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())
+
+#Configure email
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
+
+DEFAULT_FROM_EMAIL = "otterdaemon@stack-otterflow.herokuapp.com"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
