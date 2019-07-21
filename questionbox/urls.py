@@ -13,6 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static  # new
+from django.conf import settings  # new
+from django.views.generic import RedirectView
+from django.urls import path
+from django.urls import include
 from django.contrib import admin
 from django.urls import path, include
 
@@ -22,22 +27,18 @@ urlpatterns = [
 
 ]
 
-from django.urls import include
-from django.urls import path
 
 urlpatterns += [
-    path('core/', include('core.urls')),
+    path('/', include('core.urls')),
 ]
 
-from django.views.generic import RedirectView
 urlpatterns += [
     path('', RedirectView.as_view(url='/core/', permanent=True)),
 ]
 
-from django.conf import settings # new
-from django.conf.urls.static import static # new
-if settings.DEBUG: # new
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:  # new
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     path('avatar/', include('avatar.urls')),
