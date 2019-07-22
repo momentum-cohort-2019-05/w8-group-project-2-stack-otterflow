@@ -10,7 +10,10 @@
         <div class="shortlist">
                 <div class="question"><a href="{{ question.get_absolute_url }}">{{ question.title }}</a> by {{question.owner}} </div>
                 <p class="added">Added: {{question.date_posted}} Category: {% for category in all_cats %}<a href="{{ category.get_absolute_url }}">{% endfor %}{{ question.category.all|join:", "}}</a></p>
-                <p><a href="{% url 'favorites' question.pk %}">Add to favorites</a></p>
+                <!-- <p><a href="{% url 'favorites' question.pk %}">Add to favorites</a></p> -->
+                <form id="form_id" method='post'>{% csrf_token %}
+                        <button type="submit">Favorite</button>
+                </form>
             </div>
             {% endfor %}
         {% else %}
