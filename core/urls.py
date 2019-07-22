@@ -26,3 +26,7 @@ urlpatterns += [
     # path('answer/add/', views.add_answer, name='add_answer'),
     # path('ajax_is_favorite/', views.ajax_is_favorite, name='ajax_is_favorite'),
 ]
+
+urlpatterns += [
+        path('sendmail', views.sendmail, name='sendmail'),
+]

@@ -33,7 +33,7 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('', RedirectView.as_view(url='/core/', permanent=True)),
+    path('', RedirectView.as_view(url='', permanent=True)),
 ]
 
 if settings.DEBUG:  # new
