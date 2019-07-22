@@ -1,8 +1,6 @@
 {% extends "base.html" %}
-{% load static %}
 {% block content %}
 
-<script src="{% static 'answer_buttons.js' %}" defer></script>
 <div class="question-detail">
 <h1>Question: {{ question.title }}</h1>
 <p><strong>Otter:</strong> <a href="">{{ question.owner }}</a></p>
@@ -21,6 +19,8 @@
         {% for answer in question.answer_set.all %}
         <hr>
         <p>{{answer.user}} ({{answer.date_posted}}) - {{answer.answer}}</p>
+        <div class="checkmark"></div>
+        <button type="button" id="bestAnswerButton" class="bestAnswerButton">Best Answer?</button>
         {% endfor %}
         <hr>
         {% if user.is_authenticated %}
@@ -29,7 +29,8 @@
         <p><a href="{% url 'login'%}?next={{request.path}}">Login</a> to add a new answer.</p>
         {% endif %}
 
-        <button id="bestAnswerButton">Best Answer?</button>
+        <!-- <button type="button" class="bestAnswerButton">Best Answer?</button> -->
+        
         
     </div>
 </div>
