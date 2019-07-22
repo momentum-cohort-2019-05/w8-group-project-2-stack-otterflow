@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.models import User  # Blog author or commenter
+from django.core.mail import send_mail
+from django.http import HttpResponse
 
 
 def index(request):
@@ -83,6 +85,7 @@ def add_answer_to_question(request, pk):
     from core.forms import AnswerForm
     from django.views.generic.edit import CreateView
     answer = get_object_or_404(Question, pk=pk)
+    question = get_object_or_404(Question, pk=pk)
     if request.method == "POST":
         form = AnswerForm(request.POST)
         if form.is_valid():
@@ -90,6 +93,13 @@ def add_answer_to_question(request, pk):
             answer.user = request.user
             answer.target_question = get_object_or_404(Question, pk=pk)
             form.save()
+            send_mail(
+                f'{answer.user} answered your question',
+                f"{answer.user} posted an answer to your question: {question}: '{answer}''",
+                'answers@stack-otterflow.com',
+                [f'{question.owner.email}'],
+                fail_silently=False,
+            )
             return redirect('question-detail', pk=pk)
     else:
         form = AnswerForm()
@@ -114,7 +124,7 @@ def add_new_question(request):
     return render(request, 'core/question_form.html', {'form': form})
 
 
-@login_required 
+@login_required
 def add_new_category(request):
     from core.forms import CategoryForm
     from django.views.generic.edit import CreateView
@@ -128,9 +138,6 @@ def add_new_category(request):
     else:
         form = CategoryForm()
     return render(request, 'core/category_form.html', {'form': form})
-
-from django.contrib import messages
-
 
 
 class UserProfileView(generic.ListView):
@@ -154,3 +161,15 @@ class UserProfileView(generic.ListView):
         # Get the owner object from the "pk" URL parameter and add it to the context
         context['user'] = get_object_or_404(User, pk=self.kwargs['pk'])
         return context
+
+
+def sendmail(request):
+    send_mail(
+        'A user answered your question',
+        'A user posted an answer to your question on http://www.stack-otterflow.herokuapp.com/',
+        'answers@stack-otterflow.com',
+        ['kyle.heidelberger@gmail.com'],
+        fail_silently=False,
+    )
+
+    return HttpResponse('Mail successfully sent')
