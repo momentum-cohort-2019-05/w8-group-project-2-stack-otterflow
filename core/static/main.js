@@ -1,29 +1,23 @@
-favButton = document.querySelector('.favorite')
-favButton.addEventListener('click', function () {
-    // if (favorited === false)
-    question = favButton.value
-    // console.log(question)
-    const favoritesList = document.createElement('div')
-    favoritesList.classList.add('favorites-list')
-    favoritesList.append(question)
-    console.log(favoritesList)
-    // else if (favorited === true)
-    //     question = favButton.value
-    //     // console.log(question)
-    //     const favoritesList = document.createElement('div')
-    //     favoritesList.classList.add('favorites-list')
-    //     favoritesList.remove(question)
-    //     console.log(favoritesList)
+function q (sel) {
+    return document.querySelector(sel)
+}
 
-})
+function qs (sel) {
+    return document.querySelectorAll(sel)
+}
 
-button = document.querySelector('#button-id')
-button.addEventListener('click', function () {
-    button.classList.toggle('class1');
-    button.classList.toggle('class2');
-})
+// Best Answer Button
 
+let buttons = qs(".bestAnswerButton")
 
-// document.addEventListener('DOMContentLoaded', function () {
+for (let button of buttons) {
+    button.addEventListener('click', function() {
+        console.log("tracking this?")
+        const checkmarks = qs(".checkmark")  
+        for (let checkmark of checkmarks) {
+            checkmark.innerHTML = "✔"
+        }
+        console.log(checkmark)
+    }
+ )}
 
-// })

@@ -1,0 +1,1 @@
+console.error("\n/Users/amanda/Desktop/momentum/w8-group-project-2-stack-otterflow/core/static/main.js:17\n    button.addEventListener('click', function (event) {\n    ^\nParseError: Unexpected token");
