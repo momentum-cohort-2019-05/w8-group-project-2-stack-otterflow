@@ -4,17 +4,22 @@
 
 {% block content %}
 <div class="profile">
-<h1>User:  {{ user }} {% avatar user %}</h1> 
-<br>
-{% for question in question_list %}
-<ul>My Questions:</ul>
-<li>
-      <a href="{{ question.get_absolute_url }}">{{ question.title }}</a> ({{ question.date_posted }})
-</li>
+      <h1>User Profile</h1> <br>
+      <p class="username">Username: {{ user }}</p><br>
+      <p class="avatar">Avatar: {% avatar user %}</p>
+      <a href="{% url 'avatar_change' %}">Change your avatar</a>
+      <br>
 
-{% endfor %}
-<br>
-<a href="{% url 'avatar_change' %}">Change your avatar</a>
+      {% for question in question_list %}
+      <br>
+      <ul>My Questions:</ul>
+      <li>
+            <a href="{{ question.get_absolute_url }}">{{ question.title }}</a> ({{ question.date_posted }})
+      </li>
+
+      {% endfor %}
+
+
 
 </div>
 {% endblock %}

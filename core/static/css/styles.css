@@ -5,6 +5,10 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+a:visited {
+    color: blue;
+}
+
 .navbar{
     position: fixed;
     top: 0;
@@ -43,7 +47,7 @@
 }
 
 .sortbar {
-    margin-top: 20px;
+    margin-top: 80px;
     padding-left: 75px;
     margin-bottom: 20px;
 }
@@ -68,8 +72,13 @@
     margin-top: 40px;
 }
 
+/* User Profile View */
 .profile {
     margin-left: 50px;
+}
+
+.username, .avatar {
+    font-size: 1.8em;
 }
 
 footer {
