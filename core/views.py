@@ -166,8 +166,8 @@ class UserProfileView(generic.ListView):
 
 
 @login_required
-def add_favorite(request, pk):
-    console.log('This view gets called')
+def add_favorite(request):
+    print('This view gets called')
     new_favorite, created = Favorite.objects.get_or_create(
         question=question, favorited_by=request.user)
     if not created:
@@ -178,7 +178,7 @@ def add_favorite(request, pk):
         'new_favorite': new_favorite,
         'created': created,
     }
-
+    return render(request, 'core/favorite_added.html', context)
     
  
 # def add_favorite(request):

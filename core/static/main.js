@@ -2,29 +2,33 @@ function q (sel) {
     return document.querySelector(sel)
 }
 
+function qs (sel) {
+    return document.querySelectorAll(sel)
+}
+
+var csrftoken = Cookies.get('csrftoken');
 let favButton2 = q('.new_favorite')
 let answerButton = q('#answer_form')
 let newComment = q('#questionAnswerForm')
 
 favButton2.addEventListener('click', function(e){
     e.preventDefault();
+    console.log('favButton2')
     $.ajax({
         type:'POST',
-        url: 'favorite/',
+        url: '/favorite/',
         data:{
-            // 'question': $('.question').val,
-            // 'favorited_by': $('.user_class').val,
-            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            'question': $('.question').val(),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
         },
+        dataType: 'json',
         success:function(){
             alert('Added to favorites!')
         },
 })
 })
 
-function qs (sel) {
-    return document.querySelectorAll(sel)
-}
+
 
 // Best Answer Button
 
