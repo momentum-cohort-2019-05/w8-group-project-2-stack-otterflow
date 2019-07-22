@@ -85,6 +85,7 @@ def add_answer_to_question(request, pk):
     from core.forms import AnswerForm
     from django.views.generic.edit import CreateView
     answer = get_object_or_404(Question, pk=pk)
+    question = get_object_or_404(Question, pk=pk)
     if request.method == "POST":
         form = AnswerForm(request.POST)
         if form.is_valid():
@@ -93,10 +94,10 @@ def add_answer_to_question(request, pk):
             answer.target_question = get_object_or_404(Question, pk=pk)
             form.save()
             send_mail(
-                'A user answered your question',
-                'A user posted an answer to your question on http://www.stack-otterflow.herokuapp.com/',
+                f'{answer.user} answered your question',
+                f"{answer.user} posted an answer to your question: {question}: '{answer}''",
                 'answers@stack-otterflow.com',
-                [f'{request.user.email}'],
+                [f'{question.owner.email}'],
                 fail_silently=False,
             )
             return redirect('question-detail', pk=pk)
