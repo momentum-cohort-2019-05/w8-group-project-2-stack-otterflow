@@ -156,18 +156,19 @@ class UserProfileView(generic.ListView):
         context['user'] = get_object_or_404(User, pk=self.kwargs['pk'])
         return context
 
-# @login_required
-# def add_favorite(request, pk):
-#     new_favorite, created = Favorite.objects.get_or_create(
-#         question=question, favorited_by=request.user)
-#     if not created:
-#         new_favorite.delete()
+@login_required
+def add_favorite(request, pk):
+    console.log('This view gets called')
+    new_favorite, created = Favorite.objects.get_or_create(
+        question=question, favorited_by=request.user)
+    if not created:
+        new_favorite.delete()
 
-#     context = {
-#         'question': question,
-#         'new_favorite': new_favorite,
-#         'created': created,
-#     }
+    context = {
+        'question': question,
+        'new_favorite': new_favorite,
+        'created': created,
+    }
 
     
  
