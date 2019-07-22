@@ -2,17 +2,22 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .navbar{
+    position: fixed;
+    top: 0;
+    width: 100%;
     margin: 0;
     height: auto;
     min-height: 45px; 
     background-color:#484848;
     color: white;
-    padding-left: 75px;
-    padding-right: 75px;
+    padding-left: 25px;
+    padding-right: 25px;
     padding-top: 10px;
+    font-family: 'Dosis', sans-serif;
 }
 
 .navbar li {
@@ -49,17 +54,22 @@
     padding-right: 20px;
 }
 
+.leftnav, .rightnav {
+    display: flex;
+    align-items: center;
+}
+
 .index_body, .question_list, .question-detail, .category-detail, .category_list, .faveadded, .yourfavs{
     padding-left: 75px;
     padding-right: 75px;
 }
 
-.site_header {
-    margin-top: 20px;
+.site_header, .recent_questions, .favorites, .profile {
+    margin-top: 40px;
 }
 
-.recent_questions {
-    margin-top: 20px;
+.profile {
+    margin-left: 50px;
 }
 
 footer {
@@ -72,7 +82,7 @@ footer {
     text-align: center;
   }
 
-@media screen and (max-width: 700px) {
+/* @media screen and (max-width: 700px) {
     .navbar{
         padding-left: 10px;
         padding-right: 10px;
@@ -85,7 +95,7 @@ footer {
         padding-left: 10px;
         padding-right: 10px;
     }
-  }
+  } */
 
 
 
