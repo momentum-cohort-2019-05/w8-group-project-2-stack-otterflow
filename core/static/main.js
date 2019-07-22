@@ -20,3 +20,4 @@ for (let button of buttons) {
         console.log(checkmark)
     }
  )}
+

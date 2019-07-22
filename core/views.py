@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.views import generic
@@ -5,6 +6,9 @@ from core.models import Question, Category, Favorite, Answer
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.contrib.auth.models import User  # Blog author or commenter
+from django.core.mail import send_mail
+from django.http import HttpResponse
 
 
 def index(request):
@@ -41,9 +45,6 @@ class CategoryDetailView(generic.DetailView):
     model = Category
 
 
-    
-
-
 @login_required
 def user_favorites(request):
     favorites = Favorite.objects.filter(favorited_by=request.user)
@@ -77,14 +78,14 @@ def add_to_favorites(request, pk):
     }
 
     return render(request, 'core/favorite_added.html', context)
-    
 
 
-@login_required 
+@login_required
 def add_answer_to_question(request, pk):
     from core.forms import AnswerForm
     from django.views.generic.edit import CreateView
     answer = get_object_or_404(Question, pk=pk)
+    question = get_object_or_404(Question, pk=pk)
     if request.method == "POST":
         form = AnswerForm(request.POST)
         if form.is_valid():
@@ -92,13 +93,20 @@ def add_answer_to_question(request, pk):
             answer.user = request.user
             answer.target_question = get_object_or_404(Question, pk=pk)
             form.save()
+            send_mail(
+                f'{answer.user} answered your question',
+                f"{answer.user} posted an answer to your question: {question}: '{answer}''",
+                'answers@stack-otterflow.com',
+                [f'{question.owner.email}'],
+                fail_silently=False,
+            )
             return redirect('question-detail', pk=pk)
     else:
         form = AnswerForm()
     return render(request, 'core/answer_form.html', {'form': form})
 
 
-@login_required 
+@login_required
 def add_new_question(request):
     from core.forms import QuestionForm
     from django.views.generic.edit import CreateView
@@ -107,7 +115,7 @@ def add_new_question(request):
         form = QuestionForm(request.POST)
         if form.is_valid():
             question = form.save(commit=False)
-            question.owner = request.user.otterprofile
+            question.owner = request.user
             question.post = Question
             form.save()
             return redirect('question-list')
@@ -115,6 +123,53 @@ def add_new_question(request):
         form = QuestionForm()
     return render(request, 'core/question_form.html', {'form': form})
 
-from django.contrib import messages
+
+@login_required
+def add_new_category(request):
+    from core.forms import CategoryForm
+    from django.views.generic.edit import CreateView
+    # question = get_object_or_404(Question)
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save(commit=False)
+            form.save()
+            return redirect('add_new_question')
+    else:
+        form = CategoryForm()
+    return render(request, 'core/category_form.html', {'form': form})
 
 
+class UserProfileView(generic.ListView):
+    model = Question
+    template_name = 'core/profile.html'
+
+    def get_queryset(self):
+        """
+        Return list of Question objects created by User (owner id specified in URL)
+        """
+        id = self.kwargs['pk']
+        target_owner = get_object_or_404(User, pk=id)
+        return Question.objects.filter(owner=target_owner)
+
+    def get_context_data(self, **kwargs):
+        """
+        Add question owner to context so they can be displayed in the template
+        """
+        # Call the base implementation first to get a context
+        context = super(UserProfileView, self).get_context_data(**kwargs)
+        # Get the owner object from the "pk" URL parameter and add it to the context
+        context['user'] = get_object_or_404(User, pk=self.kwargs['pk'])
+        return context
+
+
+def sendmail(request):
+    send_mail(
+        'A user answered your question',
+        'A user posted an answer to your question on http://www.stack-otterflow.herokuapp.com/',
+        'answers@stack-otterflow.com',
+        ['kyle.heidelberger@gmail.com'],
+        fail_silently=False,
+    )
+
+    return HttpResponse('Mail successfully sent')

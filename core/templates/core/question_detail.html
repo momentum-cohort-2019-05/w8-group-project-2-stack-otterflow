@@ -10,7 +10,7 @@
 <p><strong>Date Added:</strong> {{ question.date_posted }}</p>
 <p><strong>Favorited:</strong> {{ question.num_favorited }} time{{question.num_favorited|pluralize}}</p>
 <p><a href="{% url 'favorites' question.pk %}">Add to favorites</a></p>
-
+<button class="favorite" id="button-id" value="{{ question }}">Add to Favorites</button>
 <div>
 
     <h4>Answers</h4>
@@ -29,11 +29,12 @@
         <p><a href="{% url 'login'%}?next={{request.path}}">Login</a> to add a new answer.</p>
         {% endif %}
 
+
         <!-- <button type="button" class="bestAnswerButton">Best Answer?</button> -->
         
         
     </div>
 </div>
 </div>
-
+<a href="{% url 'sendmail' %}">Send test mail</a>
 {% endblock %}
