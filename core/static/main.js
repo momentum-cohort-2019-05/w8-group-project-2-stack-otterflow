@@ -7,21 +7,21 @@ let answerButton = q('#answer_form')
 let newComment = q('#questionAnswerForm')
 
 
-newComment.addEventListener('submit',function(e){
-    e.preventDefault();
-    $.ajax({
-        type: 'POST',
-        url: 'answer/add/',
-        data: {
-            'answer': newComment.val(),
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-        },
-        dataType: 'json',
-        success: function(data){
-            $('.commentStyle').append(data)  
-        }
-    });
-    });
+// newComment.addEventListener('submit',function(e){
+//     e.preventDefault();
+//     $.ajax({
+//         type: 'POST',
+//         url: 'answer/add/',
+//         data: {
+//             'answer': newComment.val(),
+//             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+//         },
+//         dataType: 'json',
+//         success: function(data){
+//             $('.commentStyle').append(data)  
+//         }
+//     });
+//     });
     
     
     // answerButton.addEventListener('submit', function(event) {

@@ -201,10 +201,10 @@ class UserProfileView(generic.ListView):
 #         form = AnswerForm()
 #     return render(request, 'core/answer_form.html', {'form': form})
 
-def add_answer(request):
-    if request.user.is_authenticated():         
-       answer = Comment()
-       answer.user = request.user
-       answer.answer = request.POST.get('answer')
-       answer.save()       
-    return render(request, 'answer/add/', {'answer': answer})
+# def add_answer(request):
+#     if request.user.is_authenticated():         
+#        answer = Comment()
+#        answer.user = request.user
+#        answer.answer = request.POST.get('answer')
+#        answer.save()       
+#     return render(request, 'answer/add/', {'answer': answer})
