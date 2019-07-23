@@ -23,18 +23,18 @@
         {% block topbar %}
         <ul class='flexbar'>
             <div class='leftnav'>
-                <li><a class="icon" href="{% url 'index' %}"> <img src="https://png2.kisspng.com/sh/75970745f4f413f93e578cbc24751f18/L0KzQYm3VMA1N6N2j5H0aYP2gLBuTf91fJZ3RdV4bYD4hLb5Tflkd594RdV1aYCwccP7Tf91fJZ3RadqY0W2SLa7U8Nkbmo9RqYDOUm5QIWCUcUzOmk8TKcENkK0QoO1kP5o/kisspng-otter-computer-icons-clip-art-otter-5ac538e433cf98.4899604915228745962122.png" height="50" width="50"></a></li>
-                <li><a href="{% url 'index' %}">Stack Otterflow</a></li>
+                <li class="nav"><a class="icon" href="{% url 'index' %}"> <img src="https://png2.kisspng.com/sh/75970745f4f413f93e578cbc24751f18/L0KzQYm3VMA1N6N2j5H0aYP2gLBuTf91fJZ3RdV4bYD4hLb5Tflkd594RdV1aYCwccP7Tf91fJZ3RadqY0W2SLa7U8Nkbmo9RqYDOUm5QIWCUcUzOmk8TKcENkK0QoO1kP5o/kisspng-otter-computer-icons-clip-art-otter-5ac538e433cf98.4899604915228745962122.png" height="50" width="50"></a></li>
+                <li class="nav"><a href="{% url 'index' %}">Stack Otterflow</a></li>
             </div>
             <div class='rightnav'>
                 {% if request.user.is_authenticated %}
-                <li><a href="{% url 'user-profile' pk=user.id %}">{% avatar user 40 %}</a></li>
-                <li><a href="{% url 'user-profile' pk=user.id %}">{{ request.user }}</a> | </li>
-                <li><a href="{% url 'user-favorites' %}">Favorites</a> | </li>
-                <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                <li class="nav"><a href="{% url 'user-profile' pk=user.id %}">{% avatar user 40 %}</a></li>
+                <li class="nav"><a href="{% url 'user-profile' pk=user.id %}">{{ request.user }}</a> | </li>
+                <li class="nav"><a href="{% url 'user-favorites' %}">Favorites</a> | </li>
+                <li class="nav"><a href="{% url 'auth_logout' %}">Logout</a></li>
                 {% else %}
-                <li><a href="{% url 'auth_login' %}">Login</a></li>
-                <li><a href="{% url 'registration_register' %}">Register</a></li>
+                <li class="nav"><a href="{% url 'auth_login' %}">Login</a> | </li>
+                <li class="nav"><a href="{% url 'registration_register' %}">Register</a></li>
             </div>
             {% endif %}
         </ul>

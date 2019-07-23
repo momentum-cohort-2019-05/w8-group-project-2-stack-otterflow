@@ -1,27 +1,27 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="question_list">
+<div class="question_list">
     <h1 class='question_header'>Questions</h1>
     {% if question_list %}
-        <ul>
+    <ul>
         {% for question in question_list %}
-            <li>
-             <a href="{{ question.get_absolute_url }}">{{ question.title }}</a> ({{ question.category.all|join:", "}})
-            </li>
+        <li>
+            <a href="{{ question.get_absolute_url }}">{{ question.title }}</a> ({{ question.category.all|join:", "}})
+        </li>
         {% endfor %}
-        </ul>
+    </ul>
     {% else %}
-        <p>There are no Questions asked.</p>
+    <p>There are no Questions asked.</p>
     {% endif %}
-        </p>
+    </p>
     {% if user.is_authenticated %}
     <a href="{% url 'add_new_question' %}">Add a new question!</a></p>
     {% else %}
-    <p><a href="{% url 'auth_login' %}">Login</a> to add a new question</p>
+    <br>
+    <p class="login"><a href="{% url 'auth_login' %}">Login</a> to add a new question</p>
     {% endif %}
-    </div>
+</div>
 
 
 {% endblock %}

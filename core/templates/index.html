@@ -2,24 +2,30 @@
 
 {% block content %}
 <div class="index_body">
-<h1 class="site_header">Stack Otterflow Home</h1>
-<p class="intro">Welcome to Stack Otterflow, a website to ask questions to Otters!</p>
-<h2 class='recent_questions'>Recently Asked Questions</h2>
-    {% if recent_questions_list %}
+        <h1 class="site_header">Stack Otterflow Home</h1>
+        <p class="intro">Welcome to Stack Otterflow, a website to ask questions to Otters!</p>
+        <h2 class='recent_questions'>Recently Asked Questions</h2>
+        {% if recent_questions_list %}
         {% for question in recent_questions_list %}
         <div class="shortlist">
-                <div class="question"><a href="{{ question.get_absolute_url }}">{{ question.title }}</a> by {{question.owner}} </div>
-                <p class="added">Added: {{question.date_posted}} Category: {% for category in all_cats %}<a href="{{ category.get_absolute_url }}">{% endfor %}{{ question.category.all|join:", "}}</a></p>
+                <div class="question"><a href="{{ question.get_absolute_url }}">{{ question.title }}</a> by
+                        {{question.owner}} </div>
+                <p class="added">Added: {{question.date_posted}} Category: {% for category in all_cats %}<a
+                                href="{{ category.get_absolute_url }}">{% endfor %}{{ question.category.all|join:", "}}</a>
+                </p>
                 <!-- <p><a href="{% url 'favorites' question.pk %}">Add to favorites</a></p> -->
                 <form class="new_favorite" method='post'>{% csrf_token %}
                         <div class='question' value='{{ question.pk}} '></div>
                         <div class='user_class' value='{{ request.user }}'></div>
-                        <button type="submit">Favorite</button>
+                        <button class="favorite" type="submit">Favorite</button>
                 </form>
-            </div>
-            {% endfor %}
+                <form action="{% url 'favorites' question.pk %}" />
+                <button class="favorite" id="button-id" type=submit>Add to/Remove from Favorites</button>
+                </form>
+        </div>
+        {% endfor %}
         {% else %}
-            <p>There are no recent questions! :(</p>
-        {% endif %}   
+        <p>There are no recent questions! :(</p>
+        {% endif %}
 </div>
 {% endblock %}
