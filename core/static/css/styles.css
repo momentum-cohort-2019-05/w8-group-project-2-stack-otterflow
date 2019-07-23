@@ -130,9 +130,9 @@ footer {
 #bestAnswerButton {
     background-color: gray;
     border: none;
-    border-radius: 12px;
+    border-radius: 18px;
     color: white;
-    padding: 15px 32px;
+    padding: 8px 24px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
