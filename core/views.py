@@ -232,4 +232,3 @@ def sendmail(request):
     )
 
     return HttpResponse('Mail successfully sent')
-
