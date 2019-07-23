@@ -2,6 +2,7 @@ function q (sel) {
     return document.querySelector(sel)
 }
 
+
 function qs (sel) {
     return document.querySelectorAll(sel)
 }
@@ -27,6 +28,7 @@ favButton2.addEventListener('click', function(e){
         },
 })
 })
+
 
 
 newComment.addEventListener('submit',function(e){

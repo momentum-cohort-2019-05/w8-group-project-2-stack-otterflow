@@ -3,12 +3,23 @@
 {% load avatar_tags %}
 
 {% block content %}
-<h1>Otter: {% avatar user %} {{ user }}</h1>
-<a href="{% url 'avatar_change' %}">Change your avatar</a>
+<div class="profile">
+      <h1>User Profile</h1> <br>
+      <p class="username">Username: {{ user }}</p><br>
+      <p class="avatar">Avatar: {% avatar user %}</p><br>
+      <a class="change-avatar" href="{% url 'avatar_change' %}">Change your avatar</a>
+      <br>
 
-{% for question in question_list %}
-<li>
-      <a href="{{ question.get_absolute_url }}">{{ question.title }}</a>
-</li>
-{% endfor %}
+      {% for question in question_list %}
+      <br>
+      <ul>My Questions:</ul>
+      <li>
+            <a href="{{ question.get_absolute_url }}">{{ question.title }}</a> ({{ question.date_posted }})
+      </li>
+
+      {% endfor %}
+
+
+
+</div>
 {% endblock %}

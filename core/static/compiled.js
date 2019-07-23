@@ -3,6 +3,7 @@ function q (sel) {
     return document.querySelector(sel)
 }
 
+
 function qs (sel) {
     return document.querySelectorAll(sel)
 }
@@ -45,6 +46,7 @@ newComment.addEventListener('submit',function(e){
         }
     });
     });
+
 
 // Best Answer Button
 
