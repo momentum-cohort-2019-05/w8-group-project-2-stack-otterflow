@@ -5,8 +5,16 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+p {
+    margin-left: 40px;
+}
+
 a:visited {
     color: blue;
+}
+
+.login {
+    margin-left: 20px;
 }
 
 .navbar{
@@ -89,6 +97,10 @@ footer {
     background-color: #484848;
     color: white;
     text-align: center;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 /* @media screen and (max-width: 700px) {
@@ -106,6 +118,13 @@ footer {
     }
   } */
 
+.favorite {
+    background-color: rgb(69, 77, 163);
+    color: white;
+    border-radius: 999em;
+    font-size: 1em;
+    padding: .5em 1em;
+}
 
 
 #bestAnswerButton {
@@ -128,3 +147,55 @@ footer {
 }
 
 
+.added {
+    margin-left: 0;
+}
+
+.question-form {
+    margin-left: 40px;
+}
+
+.add-question {
+    background-color: rgb(69, 77, 163);
+    color: white;
+    border-radius: 999em;
+    font-size: 1em;
+    padding: .5em 1em;
+    margin-left: 5em;
+    margin-top: .5em;
+}
+
+.title {
+    margin-left: 50px;
+}
+
+.table-form {
+    
+}
+
+input, textarea, select {
+    font-size: 1em;
+    margin-top: 15px;
+
+}
+
+li {
+    margin-left: 60px;
+}
+
+li.nav {
+    margin-left: 0px;
+}
+
+input[type=submit] {
+    margin-left: 60px;
+    background-color: rgb(69, 77, 163);
+    color: white;
+    border-radius: 999em;
+    font-size: 1em;
+    padding: .5em 1em;
+}
+
+.shortlist {
+    line-height: 1.5em;
+}

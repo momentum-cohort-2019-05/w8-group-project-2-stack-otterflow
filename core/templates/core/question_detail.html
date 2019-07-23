@@ -9,8 +9,10 @@
 {% endfor %}</p>
 <p><strong>Date Added:</strong> {{ question.date_posted }}</p>
 <p><strong>Favorited:</strong> {{ question.num_favorited }} time{{question.num_favorited|pluralize}}</p>
-<p><a href="{% url 'favorites' question.pk %}">Add to favorites</a></p>
-<button class="favorite" id="button-id" value="{{ question }}">Add to Favorites</button>
+<!-- <p><a href="{% url 'favorites' question.pk %}">Add to favorites</a></p> -->
+<form action="{% url 'favorites' question.pk %}"/>
+<button class="favorite" id="button-id" type=submit>Add to/Remove from Favorites</button>
+</form>
 
 <div>
 
