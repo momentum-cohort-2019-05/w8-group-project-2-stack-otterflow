@@ -169,10 +169,6 @@ footer {
     margin-left: 50px;
 }
 
-.table-form {
-    
-}
-
 input, textarea, select {
     font-size: 1em;
     margin-top: 15px;
@@ -198,4 +194,8 @@ input[type=submit] {
 
 .shortlist {
     line-height: 1.5em;
+}
+
+.change-avatar {
+    margin-left: 100px;
 }

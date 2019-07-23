@@ -6,8 +6,8 @@
 <div class="profile">
       <h1>User Profile</h1> <br>
       <p class="username">Username: {{ user }}</p><br>
-      <p class="avatar">Avatar: {% avatar user %}</p>
-      <a href="{% url 'avatar_change' %}">Change your avatar</a>
+      <p class="avatar">Avatar: {% avatar user %}</p><br>
+      <a class="change-avatar" href="{% url 'avatar_change' %}">Change your avatar</a>
       <br>
 
       {% for question in question_list %}
