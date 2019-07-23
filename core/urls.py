@@ -23,7 +23,7 @@ urlpatterns += [
     path('question/', views.add_new_question, name='add_new_question'),
     path('category/', views.add_new_category, name='add_new_category'),
     path('favorite/', views.add_favorite, name='add_new_favorite'),
-    # path('answer/add/', views.add_answer, name='add_answer'),
+    path('answer/add/', views.add_answer, name='add_answer'),
     # path('ajax_is_favorite/', views.ajax_is_favorite, name='ajax_is_favorite'),
 ]
 

@@ -167,7 +167,8 @@ class UserProfileView(generic.ListView):
 
 @login_required
 def add_favorite(request):
-    print('This view gets called')
+    question = get_object_or_404(Question)
+    print(question)
     new_favorite, created = Favorite.objects.get_or_create(
         question=question, favorited_by=request.user)
     if not created:
@@ -181,6 +182,25 @@ def add_favorite(request):
     return render(request, 'core/favorite_added.html', context)
     
  
+
+
+
+@login_required
+def add_answer(request):
+    from core.forms import AnswerForm
+    from django.views.generic.edit import CreateView
+    answer = get_object_or_404(Question)
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.user = request.user
+            answer.target_question = get_object_or_404(Question)
+            form.save()
+    else:
+        form = AnswerForm()
+    return render(request, 'core/answer_form.html', {'form': form})
+
 # def add_favorite(request):
 #     console.log('is called')
 #     data = {'success': False} 
@@ -192,24 +212,6 @@ def add_favorite(request):
 #         fav.save()
 #         data['success'] = True
 #     return JsonResponse(data)
-
-
-# @login_required
-# def add_answer(request):
-#     # from core.forms import AnswerForm
-#     # from django.views.generic.edit import CreateView
-#     # answer = get_object_or_404(Question)
-#     if request.method == "POST":
-#         # form = AnswerForm(request.POST)
-#         if form.is_valid():
-#             answer = form.save(commit=False)
-#             answer.user = request.user
-#             answer.target_question = get_object_or_404(Question, pk=pk)
-#             form.save()
-#             return JsonResponse(data)
-#     else:
-#         form = AnswerForm()
-#     return render(request, 'core/answer_form.html', {'form': form})
 
 # def add_answer(request):
 #     if request.user.is_authenticated():         

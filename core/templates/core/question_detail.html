@@ -9,8 +9,11 @@
 {% endfor %}</p>
 <p><strong>Date Added:</strong> {{ question.date_posted }}</p>
 <p><strong>Favorited:</strong> {{ question.num_favorited }} time{{question.num_favorited|pluralize}}</p>
-<p><a href="{% url 'favorites' question.pk %}">Add to favorites</a></p>
-<button class="favorite" id="button-id" value="{{ question }}">Add to Favorites</button>
+<form class="new_favorite" method='post'>{% csrf_token %}
+        <div class='question' value='{{ question.pk}}'></div>
+        <div class='user_class' value='{{ request.user }}'></div>
+        <button type="submit">Favorite</button>
+</form>
 
 <div>
 
@@ -27,7 +30,7 @@
         {% if user.is_authenticated %}
         <a href="{% url 'add_answer_to_question' question.pk %}">Add a new answer</a></p>
         <form id='questionAnswerForm'>{% csrf_token %}
-            <textarea placeholder='Add Answer'></textarea>
+            <textarea class="newAnswer" placeholder='Add Answer'></textarea>
             <button type="submit"> Submit </button>
         </form>
         {% else %}
