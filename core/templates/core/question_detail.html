@@ -15,7 +15,12 @@
         {% csrf_token %}
         <div class='question' value='{{ question.pk }}'></div>
         <div class='user_class' value='{{ request.user }}'></div>
+        {% if request.user == user.favorite_set.all %}
+        <button class="favorite" id="button-id" type=submit value="Remove from Favorites">Remove From Favorites</button>
+        {% else %}
+        Favorited by: {{ user.favorite_set.all}}
         <button class="favorite" id="button-id" type=submit value="Add to Favorites">Add To Favorites</button>
+        {% endif %}
     </form>
     <br>
 
