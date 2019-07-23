@@ -10,7 +10,7 @@ function qs (sel) {
 var csrftoken = Cookies.get('csrftoken');
 let favButton2 = q('.new_favorite')
 let answerButton = q('#answer_form')
-let newComment = q('#questionAnswerForm')
+let newComment = q('.new_answer')
 
 
 favButton2.addEventListener('click', function(e){
@@ -20,7 +20,7 @@ favButton2.addEventListener('click', function(e){
         type:'POST',
         url: $("#new_favorite").attr('action'),
         data:{
-            'question': $('.question').val(),
+            // 'question': $('.question').val(),
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
         },
         dataType: 'json',
@@ -31,19 +31,20 @@ favButton2.addEventListener('click', function(e){
 })
 
 
-
-newComment.addEventListener('submit',function(e){
+newComment.addEventListener('click',function(e){
     e.preventDefault();
+    console.log(newComment)
     $.ajax({
         type: 'POST',
-        url: '/answer/add/',
+        url: $("#new_answer").attr('action'),
         data: {
             'answer': $('.newAnswer').val(),
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
         },
-        dataType: 'json',
+        // dataType: 'json',
         success: function(data){
-            $('.commentStyle').append(data)  
+            console.log('something')
+            $(".answers").load(" .answers") 
         }
     });
     });

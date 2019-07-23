@@ -82,30 +82,30 @@ def add_to_favorites(request, pk):
     return render(request, 'core/favorite_added.html', context)
 
 
-@login_required
-def add_answer_to_question(request, pk):
-    from core.forms import AnswerForm
-    from django.views.generic.edit import CreateView
-    answer = get_object_or_404(Question, pk=pk)
-    question = get_object_or_404(Question, pk=pk)
-    if request.method == "POST":
-        form = AnswerForm(request.POST)
-        if form.is_valid():
-            answer = form.save(commit=False)
-            answer.user = request.user
-            answer.target_question = get_object_or_404(Question, pk=pk)
-            form.save()
-            send_mail(
-                f'{answer.user} answered your question',
-                f"{answer.user} posted an answer to your question: {question}: '{answer}''",
-                'answers@stack-otterflow.com',
-                [f'{question.owner.email}'],
-                fail_silently=False,
-            )
-            return redirect('question-detail', pk=pk)
-    else:
-        form = AnswerForm()
-    return render(request, 'core/answer_form.html', {'form': form})
+# @login_required
+# def add_answer_to_question(request, pk):
+#     from core.forms import AnswerForm
+#     from django.views.generic.edit import CreateView
+#     answer = get_object_or_404(Question, pk=pk)
+#     question = get_object_or_404(Question, pk=pk)
+#     if request.method == "POST":
+#         form = AnswerForm(request.POST)
+#         if form.is_valid():
+#             answer = form.save(commit=False)
+#             answer.user = request.user
+#             answer.target_question = get_object_or_404(Question, pk=pk)
+#             form.save()
+#             send_mail(
+#                 f'{answer.user} answered your question',
+#                 f"{answer.user} posted an answer to your question: {question}: '{answer}''",
+#                 'answers@stack-otterflow.com',
+#                 [f'{question.owner.email}'],
+#                 fail_silently=False,
+#             )
+#             return redirect('question-detail', pk=pk)
+#     else:
+#         form = AnswerForm()
+#     return render(request, 'core/answer_form.html', {'form': form})
 
 
 @login_required
@@ -180,26 +180,27 @@ def add_favorite(request, pk):
         'created': created,
     }
     return render(request, 'core/favorite_added.html', context)
-    
+
  
 
 
 
 @login_required
-def add_answer(request):
+def add_answer(request, pk):
+    print('question')
     from core.forms import AnswerForm
     from django.views.generic.edit import CreateView
-    answer = get_object_or_404(Question)
+    # answer = get_object_or_404(Question, pk=pk)
     if request.method == "POST":
         form = AnswerForm(request.POST)
         if form.is_valid():
             answer = form.save(commit=False)
             answer.user = request.user
-            answer.target_question = get_object_or_404(Question)
+            answer.target_question = get_object_or_404(Question, pk=pk)
             form.save()
     else:
         form = AnswerForm()
-    return render(request, 'core/answer_form.html', {'form': form})
+    return HttpResponse()
 
 # def add_favorite(request):
 #     console.log('is called')
