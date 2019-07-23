@@ -4,7 +4,7 @@
 {% block content %}
     <div class="yourfavs">
     {% if favorites %}
-    <p >Your favorite questions:</p>
+    <p class="favorites">Your favorite questions:</p>
         <ul>
         {% for question in favorites_list %}
             <li>
@@ -14,7 +14,7 @@
         {% endfor %}
         </ul>
     {% else %}
-        <p>You haven't added any questions to your favorites yet!</p>
+        <p class="favorites">You haven't added any questions to your favorites yet!</p>
     {% endif %}
     </div>
 {% endblock %}
