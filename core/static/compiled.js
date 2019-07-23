@@ -13,12 +13,13 @@ let favButton2 = q('.new_favorite')
 let answerButton = q('#answer_form')
 let newComment = q('#questionAnswerForm')
 
+
 favButton2.addEventListener('click', function(e){
     e.preventDefault();
     console.log('favButton2')
     $.ajax({
         type:'POST',
-        url: '/favorite/',
+        url: $("#new_favorite").attr('action'),
         data:{
             'question': $('.question').val(),
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
@@ -29,6 +30,7 @@ favButton2.addEventListener('click', function(e){
         },
 })
 })
+
 
 
 newComment.addEventListener('submit',function(e){
@@ -46,7 +48,6 @@ newComment.addEventListener('submit',function(e){
         }
     });
     });
-
 
 // Best Answer Button
 

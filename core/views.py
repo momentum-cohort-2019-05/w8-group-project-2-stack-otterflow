@@ -66,7 +66,7 @@ def user_favorites(request):
 
 @login_required
 def add_to_favorites(request, pk):
-    question = get_object_or_404(Question, pk=pk)
+    # question = get_object_or_404(Question, pk=pk)
 
     new_favorite, created = Favorite.objects.get_or_create(
         question=question, favorited_by=request.user)
@@ -166,8 +166,8 @@ class UserProfileView(generic.ListView):
 
 
 @login_required
-def add_favorite(request):
-    question = get_object_or_404(Question)
+def add_favorite(request, pk):
+    question = get_object_or_404(Question, pk=pk)
     print(question)
     new_favorite, created = Favorite.objects.get_or_create(
         question=question, favorited_by=request.user)

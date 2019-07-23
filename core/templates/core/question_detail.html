@@ -10,16 +10,11 @@
 <p><strong>Date Added:</strong> {{ question.date_posted }}</p>
 <p><strong>Favorited:</strong> {{ question.num_favorited }} time{{question.num_favorited|pluralize}}</p>
 
-<form class="new_favorite" method='post'>{% csrf_token %}
-        <div class='question' value='{{ question.pk}}'></div>
+<form id="new_favorite" class="new_favorite" method='post' action="{% url 'favorites' question.pk %}">{% csrf_token %}
+        <div class='question' value='{{ question.pk }}'></div>
         <div class='user_class' value='{{ request.user }}'></div>
-        <button type="submit">Favorite</button>
-
-<!-- <p><a href="{% url 'favorites' question.pk %}">Add to favorites</a></p> -->
-<form action="{% url 'favorites' question.pk %}"/>
-<button class="favorite" id="button-id" type=submit>Add to/Remove from Favorites</button>
-
-</form>
+        <button class="favorite" id="button-id" type=submit>Add to/Remove from Favorites</button>
+</form>        
 
 <div>
 
