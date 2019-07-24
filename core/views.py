@@ -186,7 +186,7 @@ def add_answer(request, pk):
     from core.forms import AnswerForm
     from django.views.generic.edit import CreateView
     # answer = get_object_or_404(Question, pk=pk)
-    question = get_object_or_404(Question, pk=pk)
+    # question = get_object_or_404(Question, pk=pk)
     if request.method == "POST":
         form = AnswerForm(request.POST)
         if form.is_valid():
@@ -194,13 +194,13 @@ def add_answer(request, pk):
             answer.user = request.user
             answer.target_question = get_object_or_404(Question, pk=pk)
             form.save()
-            send_mail(
-                f'{answer.user} answered your question',
-                f"{answer.user} posted an answer to your question: {question}: '{answer}''",
-                'answers@stack-otterflow.com',
-                [f'{question.owner.email}'],
-                fail_silently=False,
-            )
+            # send_mail(
+            #     f'{answer.user} answered your question',
+            #     f"{answer.user} posted an answer to your question: {question}: '{answer}''",
+            #     'answers@stack-otterflow.com',
+            #     [f'{question.owner.email}'],
+            #     fail_silently=False,
+            # )
     else:
         form = AnswerForm()
     return HttpResponse()
