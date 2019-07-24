@@ -12,7 +12,6 @@ let favButton2 = q('.new_favorite')
 let answerButton = q('#answer_form')
 let newComment = q('.new_answer')
 let addFavorite = q('.favorite')
-let buttons = qs(".bestAnswerButton")
 
 
 favButton2.addEventListener('click', function (e) {
@@ -46,7 +45,7 @@ addFavorite.addEventListener('click', function () {
 })
 
 
-newComment.addEventListener('submit',function(e){
+newComment.addEventListener('submit', function (e) {
     e.preventDefault();
     console.log(newComment)
     $.ajax({
@@ -78,5 +77,3 @@ for (let checkmark of checkmarks) {
         }
     })
 }
-
-
