@@ -70,9 +70,9 @@ newComment.addEventListener('click',function(e){
 let buttons = qs(".bestAnswerButton")
 
 for (let button of buttons) {
-    button.addEventListener('click', function () {
-        console.log("tracking this?")
-        const checkmarks = qs(".checkmark")
+    button.addEventListener('click', function() {
+        // console.log("tracking this?")
+        const checkmarks = qs(".checkmark")  
         for (let checkmark of checkmarks) {
             checkmark.innerHTML = "✔"
         }
@@ -81,5 +81,5 @@ for (let button of buttons) {
     )
 }
 
-
+ 
 },{}]},{},[1]);
