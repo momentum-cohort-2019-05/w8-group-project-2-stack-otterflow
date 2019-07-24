@@ -1,9 +1,11 @@
 {% extends "base.html" %}
+{% load avatar_tags %}
+
 {% block content %}
 
 <div class="question-detail">
-    <h1>Question: {{ question.title }}</h1>
-    <p><strong>Otter:</strong> {{ question.owner }}</p>
+    <h1>Question: "{{ question.title }}"</h1>
+    <p><strong>Otter:</strong> {% avatar question.owner 50 %} {{ question.owner }}  </p> 
     <p><strong>Description:</strong> {{ question.description }}</p>
     <p><strong>Categories:</strong> {% for type in question.category.all %}<a
             href="{{ type.get_absolute_url }}">{{ type }}</a>
