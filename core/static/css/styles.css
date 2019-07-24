@@ -199,3 +199,11 @@ input[type=submit] {
 .change-avatar {
     margin-left: 100px;
 }
+
+button[type=submit] {
+    background-color: rgb(69, 77, 163);
+    color: white;
+    border-radius: 999em;
+    font-size: 1em;
+    padding: .5em 1em;
+}

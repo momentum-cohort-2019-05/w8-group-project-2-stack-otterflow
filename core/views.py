@@ -67,7 +67,6 @@ def user_favorites(request):
 @login_required
 def add_to_favorites(request, pk):
     # question = get_object_or_404(Question, pk=pk)
-
     new_favorite, created = Favorite.objects.get_or_create(
         question=question, favorited_by=request.user)
     if not created:
@@ -233,4 +232,3 @@ def sendmail(request):
     )
 
     return HttpResponse('Mail successfully sent')
-
