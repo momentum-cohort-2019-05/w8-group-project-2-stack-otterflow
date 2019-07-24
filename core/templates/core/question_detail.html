@@ -1,9 +1,11 @@
 {% extends "base.html" %}
+{% load avatar_tags %}
+
 {% block content %}
 
 <div class="question-detail">
-    <h1>Question: {{ question.title }}</h1>
-    <p><strong>Otter:</strong> <a href="">{{ question.owner }}</a></p>
+    <h1>Question: "{{ question.title }}"</h1>
+    <p><strong>Otter:</strong> {% avatar question.owner 50 %} {{ question.owner }}  </p> 
     <p><strong>Description:</strong> {{ question.description }}</p>
     <p><strong>Categories:</strong> {% for type in question.category.all %}<a
             href="{{ type.get_absolute_url }}">{{ type }}</a>
@@ -32,8 +34,8 @@
         {% for answer in question.answer_set.all %}
         <hr>
         <p>{{answer.user}} ({{answer.date_posted}}) - {{answer.answer}}</p>
-        <div class="checkmark"></div>
-        <button type="button" id="bestAnswerButton" class="bestAnswerButton">Best Answer?</button>
+        <div class="checkmark" value="">
+        <button type="button" id="bestAnswerButton" class="bestAnswerButton" value="">Best Answer?</button></div>
         {% endfor %}
         <hr>
         {% if user.is_authenticated %}
