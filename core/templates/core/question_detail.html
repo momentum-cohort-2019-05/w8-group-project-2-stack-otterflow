@@ -3,7 +3,7 @@
 
 <div class="question-detail">
     <h1>Question: {{ question.title }}</h1>
-    <p><strong>Otter:</strong> <a href="{% url 'user-profile' user.pk %}">{{ question.owner }}</a></p>
+    <p><strong>Otter:</strong> {{ question.owner }}</p>
     <p><strong>Description:</strong> {{ question.description }}</p>
     <p><strong>Categories:</strong> {% for type in question.category.all %}<a
             href="{{ type.get_absolute_url }}">{{ type }}</a>
