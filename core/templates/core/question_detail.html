@@ -34,8 +34,8 @@
         {% for answer in question.answer_set.all %}
         <hr>
         <p>{{answer.user}} ({{answer.date_posted}}) - {{answer.answer}}</p>
-        <div class="checkmark"></div>
-        <button type="button" id="bestAnswerButton" class="bestAnswerButton">Best Answer?</button>
+        <div class="checkmark" value="">
+        <button type="button" id="bestAnswerButton" class="bestAnswerButton" value="">Best Answer?</button></div>
         {% endfor %}
         <hr>
         {% if user.is_authenticated %}
