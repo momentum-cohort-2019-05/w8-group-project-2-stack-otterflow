@@ -199,3 +199,8 @@ input[type=submit] {
 .change-avatar {
     margin-left: 100px;
 }
+
+.checkmark {
+    color: green;
+    font-size: 2.5em;
+}
