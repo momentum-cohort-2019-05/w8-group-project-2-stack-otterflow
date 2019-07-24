@@ -186,6 +186,7 @@ def add_answer(request, pk):
     from core.forms import AnswerForm
     from django.views.generic.edit import CreateView
     # answer = get_object_or_404(Question, pk=pk)
+    question = get_object_or_404(Question, pk=pk)
     if request.method == "POST":
         form = AnswerForm(request.POST)
         if form.is_valid():
