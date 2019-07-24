@@ -12,6 +12,8 @@ var csrftoken = Cookies.get('csrftoken');
 let favButton2 = q('.new_favorite')
 let answerButton = q('#answer_form')
 let newComment = q('.new_answer')
+let addFavorite = q('.favorite')
+let buttons = qs(".bestAnswerButton")
 
 
 favButton2.addEventListener('click', function (e) {
@@ -32,7 +34,7 @@ favButton2.addEventListener('click', function (e) {
     })
 })
 
-let addFavorite = q('.favorite')
+
 addFavorite.addEventListener('click', function () {
     if (addFavorite.value === "Add to Favorites") {
         addFavorite.value = "Remove from Favorites";
@@ -44,9 +46,7 @@ addFavorite.addEventListener('click', function () {
     }
 })
 
-
-
-newComment.addEventListener('click',function(e){
+newComment.addEventListener('submit',function(e){
     e.preventDefault();
     console.log(newComment)
     $.ajax({
@@ -65,8 +65,6 @@ newComment.addEventListener('click',function(e){
 });
 
 // Best Answer Button
-
-let buttons = qs(".bestAnswerButton")
 
 for (let button of buttons) {
     button.addEventListener('click', function() {
