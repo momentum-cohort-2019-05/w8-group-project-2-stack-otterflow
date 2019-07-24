@@ -39,9 +39,9 @@
         {% endfor %}
         <hr>
         {% if user.is_authenticated %}
-        <form id='new_answer' method='post' onsubmit='return false;' action="{% url 'add_answer' question.pk %}">{% csrf_token %}
+        <form id='new_answer' class='new_answer' method='post' onsubmit='return false;' action="{% url 'add_answer' question.pk %}">{% csrf_token %}
             <textarea class="newAnswer" placeholder='Add Answer'></textarea>
-            <button class='new_answer' type="submit"> Submit </button>
+            <button type="submit"> Submit </button>
         </form>
         {% else %}
         <p><a href="{% url 'auth_login' %}?next={{request.path}}">Login</a> to add a new answer.</p>
