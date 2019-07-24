@@ -45,7 +45,7 @@ addFavorite.addEventListener('click', function () {
 
 
 
-newComment.addEventListener('click',function(e){
+newComment.addEventListener('click', function (e) {
     e.preventDefault();
     console.log(newComment)
     $.ajax({
@@ -56,9 +56,9 @@ newComment.addEventListener('click',function(e){
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
         },
         // dataType: 'json',
-        success: function(data){
+        success: function (data) {
             console.log('something')
-            $(".answers").load(" .answers") 
+            $(".answers").load(" .answers")
         }
     });
 });
@@ -66,17 +66,15 @@ newComment.addEventListener('click',function(e){
 // Best Answer Button
 
 let buttons = qs(".bestAnswerButton")
+const checkmarks = qs(".checkmark")
 
-for (let button of buttons) {
-    button.addEventListener('click', function() {
-        // console.log("tracking this?")
-        const checkmarks = qs(".checkmark")  
-        for (let checkmark of checkmarks) {
+for (let checkmark of checkmarks) {
+    checkmark.addEventListener('click', function () {
+        checkmark.value = "best"
+        if (checkmark.value === "best") {
             checkmark.innerHTML = "✔"
         }
-        console.log(checkmark)
-    }
-    )
+    })
 }
 
- 
+
