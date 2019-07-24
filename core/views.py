@@ -12,7 +12,6 @@ from django.core.mail import send_mail
 from django.http import HttpResponse
 
 
-
 def index(request):
     """View function for home page of site."""
 
@@ -180,9 +179,6 @@ def add_favorite(request, pk):
     }
     return render(request, 'core/favorite_added.html', context)
 
- 
-
-
 
 @login_required
 def add_answer(request, pk):
@@ -197,13 +193,20 @@ def add_answer(request, pk):
             answer.user = request.user
             answer.target_question = get_object_or_404(Question, pk=pk)
             form.save()
+            send_mail(
+                f'{answer.user} answered your question',
+                f"{answer.user} posted an answer to your question: {question}: '{answer}''",
+                'answers@stack-otterflow.com',
+                [f'{question.owner.email}'],
+                fail_silently=False,
+            )
     else:
         form = AnswerForm()
     return HttpResponse()
 
 # def add_favorite(request):
 #     console.log('is called')
-#     data = {'success': False} 
+#     data = {'success': False}
 #     if request.method=='POST':
 #         question = get_object_or_404(Question, pk=pk)
 #         fav = FavBooks()
@@ -214,11 +217,11 @@ def add_answer(request, pk):
 #     return JsonResponse(data)
 
 # def add_answer(request):
-#     if request.user.is_authenticated():         
+#     if request.user.is_authenticated():
 #        answer = Comment()
 #        answer.user = request.user
 #        answer.answer = request.POST.get('answer')
-#        answer.save()       
+#        answer.save()
 #     return render(request, 'answer/add/', {'answer': answer})
 
 
