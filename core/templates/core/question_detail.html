@@ -15,8 +15,29 @@
         {% csrf_token %}
         <div class='question' value='{{ question.pk }}'></div>
         <div class='user_class' value='{{ request.user }}'></div>
+
         {% if user.favorite_set.exists %}
         <button class="favorite" id="button-id" type=submit value="Remove from Favorites">Remove From Favorites</button>
+
+</form>        
+
+<div>
+
+    <h4>Answers</h4>
+
+    <div class="answers" >
+        {% for answer in question.answer_set.all %}
+        <hr>
+        <p>{{answer.user}} ({{answer.date_posted}}) - {{answer.answer}}</p>
+        <div class="checkmark"></div>
+        <button type="button" id="bestAnswerButton" class="bestAnswerButton">Best Answer?</button>
+        {% endfor %}
+        <hr>
+        {% if user.is_authenticated %}
+        <form id='new_answer' method='post' onsubmit='return false;' action="{% url 'add_answer' question.pk %}">{% csrf_token %}
+            <textarea class="newAnswer" placeholder='Add Answer'></textarea>
+            <button class='new_answer' type="submit"> Submit </button>
+        </form>
         {% else %}
         <button class="favorite" id="button-id" type=submit value="Add to Favorites">Add To Favorites</button>
         {% endif %}
@@ -53,3 +74,4 @@
     </div>
 </div>
 {% endblock %}
+
