@@ -22,6 +22,7 @@ favButton2.addEventListener('click', function (e) {
         url: $("#new_favorite").attr('action'),
         data: {
             'question': $('.question').val(),
+
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
         },
         dataType: 'json',
@@ -46,7 +47,6 @@ addFavorite.addEventListener('click', function () {
 
 
 newComment.addEventListener('click',function(e){
-
     e.preventDefault();
     console.log(newComment)
     $.ajax({
@@ -60,7 +60,6 @@ newComment.addEventListener('click',function(e){
         success: function(data){
             console.log('something')
             $(".answers").load(" .answers") 
-
         }
     });
 });
