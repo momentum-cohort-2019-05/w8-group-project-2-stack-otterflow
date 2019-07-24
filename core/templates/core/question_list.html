@@ -7,7 +7,9 @@
     <ul>
         {% for question in question_list %}
         <li>
-            <a href="{{ question.get_absolute_url }}">{{ question.title }}</a> ({{ question.category.all|join:", "}})
+            <a href="{{ question.get_absolute_url }}">{{ question.title }}</a> -- {{ question.owner }}
+            {% for category in question.category.all %}[<a href="{{ category.get_absolute_url }}"> {{ category }}
+                {% endfor %}</a>] ({{question.date_posted}})
         </li>
         {% endfor %}
     </ul>
@@ -16,6 +18,7 @@
     {% endif %}
     </p>
     {% if user.is_authenticated %}
+    <br>
     <a href="{% url 'add_new_question' %}">Add a new question!</a></p>
     {% else %}
     <br>

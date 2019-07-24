@@ -196,7 +196,7 @@ input[type=submit] {
     padding: .5em 1em;
 }
 
-.shortlist {
+.shortlist, .question_list {
     line-height: 1.5em;
 }
 
@@ -216,4 +216,8 @@ button[type=submit] {
     border-radius: 999em;
     font-size: 1em;
     padding: .5em 1em;
+}
+
+.category-questions {
+    line-height: 2em;
 }

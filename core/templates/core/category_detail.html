@@ -3,14 +3,15 @@
 {% block content %}
 <div class="category-detail">
 <h1>{{ category.name }}</h1>
-<div>
+<br>
+<div class="category-questions">
     {% if category.question_set.all %}
     <div class="">
         {% for question in category.question_set.all %}
         <a href="{% url 'index' %}">
             {{ question.title }}
-        </a>
-        <hr>
+        </a> -- {{ question.owner }} ({{ question.date_posted }})
+        <br>
         {% endfor %}
     </div>
     {% else %}
